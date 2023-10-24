@@ -17,10 +17,10 @@ public class PlayerMovement : MonoBehaviour
     // Attack
     [SerializeField] private Transform attackArea;
     [SerializeField] private LayerMask enemiesLayer;
-    private float attackDelay = 0.9f;
+    private float attackDelay = 0.8f;
     private float timerBetweenAttacks = 0f;
-    private float attackRange = 2f;
     [SerializeField] private float attackDamage = 20f;
+    [SerializeField] private float attackRange;
 
     private void Start()
     {
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         } 
         
-        if(context.canceled && rb.velocity.y > 0f)
+        if(context.canceled && rb.velocity.y > 0f && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             isGrounded = false;
@@ -98,6 +98,12 @@ public class PlayerMovement : MonoBehaviour
 
             timerBetweenAttacks = attackDelay;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackArea.position, attackRange);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
