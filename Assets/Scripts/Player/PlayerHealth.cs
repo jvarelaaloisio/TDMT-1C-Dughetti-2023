@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
-    private float health;
+    [SerializeField] public float maxHealth = 100f;
+    public float health;
     public bool isDamaged = false;
     public bool isDead = false;
     private float timer = 0f;

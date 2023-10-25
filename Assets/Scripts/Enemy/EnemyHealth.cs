@@ -8,7 +8,8 @@ public class EnemyHealth : MonoBehaviour
     public bool isDead = false;
 
     private float timer = 0f;
-    private float timeIsDamaged = 1f;
+    private float timeIsDamaged = 0.5f;
+    private float timeIsDead = 2f;
 
     private void Start()
     {
@@ -40,16 +41,17 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        timer = timeIsDamaged;
+        
         Debug.Log($"Enemy got hit! Health: {health}");
         if (health <= 0f)
         {
             isDead = true;
-            Debug.Log("Health is 0!");
+            timer = timeIsDead;
         }
         else
         {
             isDamaged = true;
+            timer = timeIsDamaged;
         }
     }
 }
