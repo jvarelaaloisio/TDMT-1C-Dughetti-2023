@@ -15,6 +15,6 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
     }
 }
