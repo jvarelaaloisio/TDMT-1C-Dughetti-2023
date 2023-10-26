@@ -16,6 +16,9 @@ public class PlayerHealth : MonoBehaviour
     //Audio
     [SerializeField] private CharacterAudioManager audioManager;
 
+    //Particle
+    [SerializeField] private new ParticleSystem particleSystem;
+
     void Start()
     {
         health = maxHealth;
@@ -52,11 +55,13 @@ public class PlayerHealth : MonoBehaviour
             timer = timeIsDead;
             isDead = true;
             audioManager.PlayCharacterDeath();
+            particleSystem.Play();
         } else
         {
             timer = timeIsDamaged;
             isDamaged = true;
             audioManager.PlayCharacterDamage();
+            particleSystem.Play();
         }
     }
 }

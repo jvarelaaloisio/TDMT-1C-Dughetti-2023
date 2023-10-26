@@ -2428,6 +2428,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b86c525f444d3d4fa11cc78b8e48022, type: 3}
+--- !u!198 &474417170 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+  m_PrefabInstance: {fileID: 5897991729631940369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &475008243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7272160541667743823, guid: ff98213f4f342ef46b070419c9061529, type: 3}
@@ -11187,10 +11192,58 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3045607301108377657, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045607301108377657, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045607301108377657, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.122641504
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.029503377
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.07956831
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.4811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.22014064
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.33858633
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578644446567332781, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: TriggerModule.primitives.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5448457138642418639, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7640634678866248991, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: particleSystem
+      value: 
+      objectReference: {fileID: 474417170}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
