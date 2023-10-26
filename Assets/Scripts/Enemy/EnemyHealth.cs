@@ -7,9 +7,13 @@ public class EnemyHealth : MonoBehaviour
     public bool isDamaged = false;
     public bool isDead = false;
 
+    // Animation
     private float timer = 0f;
     private float timeIsDamaged = 0.5f;
     private float timeIsDead = 2f;
+
+    // Audio
+    [SerializeField] private CharacterAudioManager audioManager;
 
     private void Start()
     {
@@ -47,11 +51,13 @@ public class EnemyHealth : MonoBehaviour
         {
             isDead = true;
             timer = timeIsDead;
+            audioManager.PlayCharacterDeath();
         }
         else
         {
             isDamaged = true;
             timer = timeIsDamaged;
+            audioManager.PlayCharacterDamage();
         }
     }
 }

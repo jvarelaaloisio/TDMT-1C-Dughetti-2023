@@ -3,14 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // Movement
     public Rigidbody2D rb;
-    
-    public PlayerHealth health;
-
     public float horizontal;
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
     private bool isFacingRight = true;
+
+    // Animation parameters
     public bool isGrounded = true;
     public bool isAttacking;
 
@@ -21,7 +21,11 @@ public class PlayerMovement : MonoBehaviour
     private float timerBetweenAttacks = 0f;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float attackRange;
+    public PlayerHealth health;
 
+    //Audio
+    [SerializeField] private CharacterAudioManager audioManager;
+    
     private void Start()
     {
         health = GetComponent<PlayerHealth>();
@@ -35,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player is dead!");
         } else
         {
+            if(horizontal != 0f && isGrounded)
+                audioManager.PlayCharacterSteps();
+
             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
             if (!isFacingRight && horizontal < 0f)
@@ -60,14 +67,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed && isGrounded) {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            audioManager.PlayCharacterJump();
             isGrounded = false;
         } 
         
         if(context.canceled && rb.velocity.y > 0f && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            audioManager.PlayCharacterJump();
             isGrounded = false;
-        } 
+        }
     }
 
     private void Flip()
@@ -85,10 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        Debug.Log("Attack!");
         if (timerBetweenAttacks <= 0 && context.performed)
         {
-            Debug.Log($"context.performed: {context.performed}");
             isAttacking = true;
             Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
             foreach(Collider2D enemy in enemiesInAttackArea)
@@ -97,6 +104,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             timerBetweenAttacks = attackDelay;
+
+            audioManager.PlayCharacterAttack();
         }
     }
 

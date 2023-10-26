@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -5,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float speed = 1f;
 
     private Spawner spawner;
+
     public EnemyHealth health;
 
     private float threshold = 0.1f;
@@ -13,9 +15,13 @@ public class EnemyMovement : MonoBehaviour
 
     public bool isAttacking = false;
 
+    //Audio
+    [SerializeField] private CharacterAudioManager audioManager;
+
     private void Start()
     {
         spawner = GetComponentInParent<Spawner>();
+
         health = GetComponent<EnemyHealth>();
     }
 
@@ -59,6 +65,4 @@ public class EnemyMovement : MonoBehaviour
         localScale.x *= -1f;
         transform.localScale = localScale;
     }
-
-    
 }

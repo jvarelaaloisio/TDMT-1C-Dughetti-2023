@@ -9,6 +9,9 @@ public class EnemyDamage : MonoBehaviour
     private float attackDelay = 0.5f;
     private float timerBetweenAttacks = 0f;
 
+    //Audio
+    [SerializeField] private CharacterAudioManager audioManager;
+
     private void Start()
     {
         enemyMovement = GetComponentInParent<EnemyMovement>();
@@ -33,6 +36,8 @@ public class EnemyDamage : MonoBehaviour
             enemyMovement.isAttacking = true;
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(enemyDamage);
             timerBetweenAttacks = attackDelay;
+
+            audioManager.PlayCharacterAttack();
         }
     }
 }

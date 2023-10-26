@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject original;
     [SerializeField] private int maxSpawn;
+    [SerializeField] BossSpawner bossSpawner;
+
     private int spawnCount = 0;
 
     public List<Vector2> positions;
@@ -16,6 +18,11 @@ public class Spawner : MonoBehaviour
         {
             spawnCount++;
             Spawn();
+
+            if (spawnCount == maxSpawn)
+            {
+                bossSpawner.spawnsDead++;
+            }
         }
     }
 

@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    // Health
     [SerializeField] public float maxHealth = 100f;
     public float health;
+
+    //Animation parameters
     public bool isDamaged = false;
     public bool isDead = false;
     private float timer = 0f;
     private float timeIsDamaged = 0.5f;
+    private float timeIsDead = 2f;
+
+    //Audio
+    [SerializeField] private CharacterAudioManager audioManager;
 
     void Start()
     {
@@ -39,15 +46,17 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        timer = timeIsDamaged;
-        Debug.Log($"Player got hit! Health: {health}");
+
         if (health <= 0)
         {
+            timer = timeIsDead;
             isDead = true;
-            Debug.Log("Health is 0!");
+            audioManager.PlayCharacterDeath();
         } else
         {
+            timer = timeIsDamaged;
             isDamaged = true;
+            audioManager.PlayCharacterDamage();
         }
     }
 }
