@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//TODO: TP2 - Fix - Merge with EnemyMovement
 public class BossMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
@@ -15,6 +16,7 @@ public class BossMovement : MonoBehaviour
     public bool isAttacking = false;
 
     //Audio
+    //TODO: TP1 - Unused method/variable
     [SerializeField] private CharacterAudioManager audioManager;
 
     private void Start()
@@ -27,6 +29,7 @@ public class BossMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO: TP2 - Optimization - Should be event based
         if (health.isDead)
         {
             Debug.Log("Enemy is dead!");
@@ -60,6 +63,7 @@ public class BossMovement : MonoBehaviour
     private void Flip()
     {
         isFacingRight = !isFacingRight;
+        //TODO: TP2 - Fix - SpriteRenderer.Flip
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;

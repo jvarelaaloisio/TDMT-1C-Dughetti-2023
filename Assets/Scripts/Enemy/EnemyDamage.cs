@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//TODO: TP2 - Fix - Repeated code in Boss
 public class EnemyDamage : MonoBehaviour
 {
     [SerializeField] private float enemyDamage;
@@ -18,6 +19,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void Update()
     {
+        //TODO: TP2 - Could be a coroutine/Invoke
         if (enemyMovement.isAttacking)
         {
             timerBetweenAttacks -= Time.deltaTime;

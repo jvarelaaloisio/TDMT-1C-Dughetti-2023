@@ -7,6 +7,7 @@ public class Parallax : MonoBehaviour
 
     float singleTextureWidth;
 
+    //TODO: TP2 - Remove redundant comments
     // Start is called before the first frame update
     void Start()
     {

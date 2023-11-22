@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//TODO: TP2 - Fix - There should only be one Health component, this must be merged with PlayerHealth
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 30f;
