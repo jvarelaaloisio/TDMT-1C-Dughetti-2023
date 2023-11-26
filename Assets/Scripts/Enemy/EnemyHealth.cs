@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private CharacterAudioManager audioManager;
 
     //Particle
-    [SerializeField] private new ParticleSystem particleSystem;
+    //[SerializeField] private ParticleSystem particleSystem;
 
     private void Start()
     {
@@ -56,14 +56,14 @@ public class EnemyHealth : MonoBehaviour
             isDead = true;
             timer = timeIsDead;
             audioManager.PlayCharacterDeath();
-            particleSystem.Play();
+            GetComponent<ParticleSystem>().Play();
         }
         else
         {
             isDamaged = true;
             timer = timeIsDamaged;
             audioManager.PlayCharacterDamage();
-            particleSystem.Play();
+            GetComponent<ParticleSystem>().Play();
         }
     }
 }

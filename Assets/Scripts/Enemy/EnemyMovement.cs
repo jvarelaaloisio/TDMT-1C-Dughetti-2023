@@ -25,9 +25,9 @@ public class EnemyMovement : MonoBehaviour
         health = GetComponent<EnemyHealth>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //TODO: TP2 - Optimization - Should be event based
         if (health.isDead)
         {
             Debug.Log("Enemy is dead!");
@@ -61,6 +61,7 @@ public class EnemyMovement : MonoBehaviour
     private void Flip()
     {
         isFacingRight = !isFacingRight;
+        //TODO: TP2 - Fix - SpriteRenderer.Flip
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;

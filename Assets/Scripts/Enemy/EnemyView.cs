@@ -13,6 +13,7 @@ public class EnemyView : MonoBehaviour
         enemyMovement = GetComponentInParent<EnemyMovement>();
     }
 
+    //TODO: TP2 - Syntax - Consistency in access modifiers (private/protected/public/etc)
     private void Update()
     {
         //TODO: TP2 - Fix - Hardcoded value/s

@@ -4,15 +4,33 @@ using UnityEngine;
 //TODO: TP2 - Fix - Merge with BossSpawner
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject original;
+    [SerializeField] private GameObject enemyToSpawn;
     [SerializeField] private int maxSpawn;
-    [SerializeField] BossSpawner bossSpawner;
+    [SerializeField] Spawner bossSpawner;
+    [SerializeField] bool isBossSpawner;
+    [SerializeField] private int spawnsDeadToSpawnBoss;
 
     private int spawnCount = 0;
+    private int spawnsDead = 0;
+    private bool canSpawnBoss = true;
 
     public List<Vector2> positions;
 
     private void Update()
+    {
+        if (isBossSpawner)
+            BossSpawnerUpdate();
+        else
+            SpawnerUpdate();
+    }
+
+    [ContextMenu("Spawn")]
+    private void Spawn()
+    {
+        Instantiate(enemyToSpawn, transform);
+    }
+
+    void SpawnerUpdate()
     {
         if (transform.childCount == 0 && spawnCount < maxSpawn)
         {
@@ -26,9 +44,13 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    [ContextMenu("Spawn")]
-    private void Spawn()
+    void BossSpawnerUpdate()
     {
-        Instantiate(original, transform);
+        //TODO: TP2 - Optimization - Should be event based
+        if (spawnsDead == spawnsDeadToSpawnBoss && canSpawnBoss)
+        {
+            Spawn();
+            canSpawnBoss = false;
+        }
     }
 }

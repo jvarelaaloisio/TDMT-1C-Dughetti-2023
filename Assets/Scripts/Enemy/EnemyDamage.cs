@@ -32,6 +32,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO: TP2 - Fix - Hardcoded value/s
         if (collision.gameObject.tag == "Player" && timerBetweenAttacks <= 0)
         {
             enemyMovement.isAttacking = true;
