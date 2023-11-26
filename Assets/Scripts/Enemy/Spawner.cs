@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: TP2 - Fix - Merge with BossSpawner
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject original;

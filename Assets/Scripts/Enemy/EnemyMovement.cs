@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//TODO: TP2 - Fix - Merge with BossMovement
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;

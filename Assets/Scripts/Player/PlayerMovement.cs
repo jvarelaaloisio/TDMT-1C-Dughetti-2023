@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//TODO: TP2 - Fix - Character movement must be unified into a single script 
 public class PlayerMovement : MonoBehaviour
 {
     // Movement
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO: TP2 - Optimization - Should be event based
         if (health.isDead)
         {
             Debug.Log("Player is dead!");
@@ -87,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    //TODO: TP2 - Move all input reads to specific class
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
@@ -117,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO: TP2 - Fix - Hardcoded value/s
         if(collision.gameObject.tag == "Ground")
             isGrounded = true;
     }

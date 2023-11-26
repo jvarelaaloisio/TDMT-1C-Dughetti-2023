@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: TP2 - Fix - Merge with Spawner
 public class BossSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject boss;
@@ -13,6 +14,7 @@ public class BossSpawner : MonoBehaviour
 
     private void Update()
     {
+        //TODO: TP2 - Optimization - Should be event based
         if (spawnsDead == spawnsDeadToSpawnBoss && canSpawnBoss)
         {
             SpawnBoss();

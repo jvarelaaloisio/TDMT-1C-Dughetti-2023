@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//TODO: TP2 - Fix - There should only be one Health component, this must be merged with EbenyHealth
 public class PlayerHealth : MonoBehaviour
 {
     // Health

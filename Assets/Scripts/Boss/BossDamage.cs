@@ -18,6 +18,7 @@ public class BossDamage : MonoBehaviour
 
     private void Update()
     {
+        //TODO: TP2 - Could be a coroutine/Invoke
         if (bossMovement.isAttacking)
         {
             timerBetweenAttacks -= Time.deltaTime;
@@ -30,6 +31,7 @@ public class BossDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO: TP2 - Fix - Hardcoded value/s
         if (collision.gameObject.tag == "Player" && timerBetweenAttacks <= 0)
         {
             bossMovement.isAttacking = true;
