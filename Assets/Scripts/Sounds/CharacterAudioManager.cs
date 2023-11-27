@@ -14,6 +14,12 @@ public class CharacterAudioManager : MonoBehaviour
     private float characterStepsTimer = 0f;
     private float characterStepsDelay = 0.3f;
 
+    private void Start()
+    {
+        PlayerHealth.onPlayerDamage += PlayCharacterDamage;
+        PlayerHealth.onPlayerDeath += PlayCharacterDeath;
+    }
+
     public void PlayCharacterAttack()
     {
         characterAudioSource.clip = characterAttack;

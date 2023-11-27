@@ -3,6 +3,12 @@ using UnityEngine;
 //TODO: TP2 - Fix - There should only be one Health component, this must be merged with EbenyHealth
 public class PlayerHealth : MonoBehaviour
 {
+    // Delegates
+    public delegate void OnPlayerDeath();
+    public static OnPlayerDeath onPlayerDeath;
+    public delegate void OnPlayerDamage();
+    public static OnPlayerDamage onPlayerDamage;
+
     // Health
     [SerializeField] public float maxHealth = 100f;
     public float health;
@@ -23,6 +29,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        onPlayerDamage += particleSystem.Play;
+        onPlayerDeath += particleSystem.Play;
     }
 
     private void Update()
@@ -55,14 +63,14 @@ public class PlayerHealth : MonoBehaviour
         {
             timer = timeIsDead;
             isDead = true;
-            audioManager.PlayCharacterDeath();
-            particleSystem.Play();
+
+            onPlayerDeath?.Invoke();
         } else
         {
             timer = timeIsDamaged;
             isDamaged = true;
-            audioManager.PlayCharacterDamage();
-            particleSystem.Play();
+
+            onPlayerDamage?.Invoke();
         }
     }
 }

@@ -16,9 +16,6 @@ public class EnemyHealth : MonoBehaviour
     // Audio
     [SerializeField] private CharacterAudioManager audioManager;
 
-    //Particle
-    //[SerializeField] private ParticleSystem particleSystem;
-
     private void Start()
     {
         health = maxHealth;
