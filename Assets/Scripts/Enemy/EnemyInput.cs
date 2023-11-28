@@ -40,8 +40,9 @@ public class EnemyInput : MonoBehaviour
         }
     }
 
-    public void Attack()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        //TODO: TP2 - Fix - Hardcoded value/s
+        characterMovement.Attack();
     }
 }

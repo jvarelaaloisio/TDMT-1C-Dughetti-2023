@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 808303795501725018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.71, y: 1.38, z: 0}
+  m_LocalPosition: {x: -2.49, y: 1.38, z: 0}
   m_LocalScale: {x: 3.8141797, y: 2.7702737, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5055,6 +5055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccdbd3e851cfd4e49b038141a3246d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterView: {fileID: 8758136989169095496}
+  characterAudioManager: {fileID: 8928151136835332167}
   maxHealth: 150
   particleSystem: {fileID: 8295078944851492935}
 --- !u!114 &6755526185364543450
@@ -5069,17 +5071,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7826a2f8072de494db41a745ec8a9d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpingPower: 16
-  speed: 2
-  direction: {x: 0, y: 0}
+  isAttacking: 0
   attackArea: {fileID: 1945034405391219478}
   enemiesLayer:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 20
-  attackRange: 0
+  attackRange: 1
   characterView: {fileID: 8758136989169095496}
-  isAttacking: 0
+  jumpingPower: 0
+  speed: 2
+  direction: {x: 0, y: 0}
+  particleSystem: {fileID: 8295078944851492935}
+  characterAudioManager: {fileID: 8928151136835332167}
 --- !u!114 &1470546205989109510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5361,3 +5365,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1236703551812607967}
   hasIdleState: 0
+  hasJumpState: 0
+  characterMovement: {fileID: 6755526185364543450}
+  characterHealth: {fileID: 5594158137391152134}

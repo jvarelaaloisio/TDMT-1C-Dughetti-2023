@@ -9875,7 +9875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1436025416308209286, guid: e2693c1d58d42994baea6fb89d116ea1, type: 3}
       propertyPath: maxSpawn
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1436025416308209286, guid: e2693c1d58d42994baea6fb89d116ea1, type: 3}
       propertyPath: original
@@ -11094,6 +11094,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1302328609094615509, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1433576273106008664, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
       propertyPath: inputReader
       value: 
@@ -11499,6 +11503,10 @@ PrefabInstance:
     - target: {fileID: 233628712465648876, guid: 0389e16f1b8d79c429efa8b90e0cc37a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895291136806113655, guid: 0389e16f1b8d79c429efa8b90e0cc37a, type: 3}
+      propertyPath: maxSpawn
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,10 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    //Animation
+    public bool isAttacking;
+
+    // Attack
+    [SerializeField] private Transform attackArea;
+    [SerializeField] private LayerMask enemiesLayer;
+    [SerializeField] private float attackDamage = 20f;
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private CharacterView characterView;
+
     //Movement
     private bool isFacingRight = true;
     private bool isGrounded = true;
@@ -13,17 +21,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float speed = 8f;
     [SerializeField] private Vector2 direction;
 
-    //Attack
-    [SerializeField] private Transform attackArea;
-    [SerializeField] private LayerMask enemiesLayer;
-    private float attackDelay = 0.8f;
-    private float timerBetweenAttacks = 0f;
-    [SerializeField] private float attackDamage = 20f;
-    [SerializeField] private float attackRange;
-    [SerializeField] private CharacterView characterView;
-
-    //Animation
-    public bool isAttacking;
+    // Sound
+    [SerializeField] private CharacterAudioManager characterAudioManager;
 
     public void Update()
     {
@@ -34,6 +33,11 @@ public class CharacterMovement : MonoBehaviour
     public bool GetIsGrounded()
     {
         return isGrounded;
+    }
+
+    public bool GetIsAttacking()
+    {
+        return isAttacking;
     }
 
     public Vector2 GetDirection()
@@ -48,6 +52,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void Move()
     {
+        if (isGrounded)
+            characterAudioManager.PlayCharacterSteps();
+
         GetComponent<Transform>().position += new Vector3(direction.x, direction.y) * speed * Time.deltaTime;
 
         if (!isFacingRight && direction.x < 0f)
@@ -72,6 +79,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (isGrounded)
         {
+            characterAudioManager.PlayCharacterJump();
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpingPower);
             isGrounded = false;
         }
@@ -79,33 +87,32 @@ public class CharacterMovement : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Attack!");
         if(!isAttacking)
         {
+            isAttacking = true;
+            characterAudioManager.PlayCharacterAttack();
             StartCoroutine(AttackEnemy());
         }
-        /*if (!characterView.IsAnimationBeingPlayed("Attack"))
-        {
-            isAttacking = true;
-            Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
-            foreach (Collider2D enemy in enemiesInAttackArea)
-            {
-                enemy.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
-            }
-            
-        }*/
     }
 
     IEnumerator AttackEnemy()
     {
-        isAttacking = true;
-        while(isAttacking)
+        yield return new WaitUntil(() => characterView.IsCurrentAnimationAttack());
+
+        Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
+        foreach (Collider2D enemy in enemiesInAttackArea)
         {
-            Debug.Log("Start Attack");
-            yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed("Attack"));
-            Debug.Log("End Attack");
-            isAttacking = false;
+            enemy.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
         }
+
+        yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
+        isAttacking = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackArea.position, attackRange);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

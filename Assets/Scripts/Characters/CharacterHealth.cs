@@ -1,12 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class CharacterHealth : MonoBehaviour
 {
-    //Delegates
-    public delegate void OnCharacterDamage();
-    public static OnCharacterDamage onCharacterDamage;
-    public delegate void OnCharacterDeath();
-    public static OnCharacterDeath onCharacterDeath;
+    // Animation
+    private bool isDamaged = false;
+    private bool isDead = false;
+    [SerializeField] CharacterView characterView;
+    [SerializeField] CharacterAudioManager characterAudioManager;
 
     // Health
     [SerializeField] private float maxHealth = 100f;
@@ -15,16 +16,19 @@ public class CharacterHealth : MonoBehaviour
     //Particle
     [SerializeField] private new ParticleSystem particleSystem;
 
-    void Start()
+    private void Start()
     {
         health = maxHealth;
-        onCharacterDamage += particleSystem.Play;
-        onCharacterDeath += particleSystem.Play;
     }
 
-    void Update()
+    public bool GetIsDamaged()
     {
-        
+        return isDamaged;
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
     }
 
     public float GetHealth()
@@ -42,15 +46,33 @@ public class CharacterHealth : MonoBehaviour
         health -= damage;
         Debug.Log("Damage taken, current health: " + health);
 
+        particleSystem.Play();
+
         if (health <= 0)
         {
-            //onCharacterDeath?.Invoke();
-            Debug.Log("Dead");
+            isDead = true;
+            characterAudioManager.PlayCharacterDeath();
+            StartCoroutine(CheckDeathAnimation());
         }
         else
         {
-            //onCharacterDamage?.Invoke();
-            Debug.Log("Damaged");
+            isDamaged = true;
+            characterAudioManager.PlayCharacterDamage();
+            StartCoroutine(CheckHitAnimation());
         }
+    }
+
+    IEnumerator CheckHitAnimation()
+    {
+        yield return new WaitUntil(() => characterView.IsCurrentAnimationDamage());
+        yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
+        isDamaged = false;
+    }
+
+    IEnumerator CheckDeathAnimation()
+    {
+        yield return new WaitUntil(() => characterView.IsCurrentAnimationDeath());
+        yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
+        Destroy(gameObject);
     }
 }

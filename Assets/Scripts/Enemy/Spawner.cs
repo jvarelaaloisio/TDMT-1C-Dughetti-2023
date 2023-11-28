@@ -12,9 +12,14 @@ public class Spawner : MonoBehaviour
 
     private int spawnCount = 0;
     private int spawnsDead = 0;
-    private bool canSpawnBoss = true;
+    private bool canSpawnBoss;
 
     public List<Vector2> positions;
+
+    private void Start()
+    {
+        canSpawnBoss = isBossSpawner;
+    }
 
     private void Update()
     {

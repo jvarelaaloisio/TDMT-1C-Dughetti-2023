@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b14468652a1c0d4ab5c50b15c8f5610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  original: {fileID: 4598772531258322166, guid: ecc3380441ead9f49a0acfda5f928407, type: 3}
-  maxSpawn: 5
+  enemyToSpawn: {fileID: 3584584159850884636, guid: ecc3380441ead9f49a0acfda5f928407, type: 3}
+  maxSpawn: 1
+  bossSpawner: {fileID: 0}
+  isBossSpawner: 0
+  spawnsDeadToSpawnBoss: 0
   positions: []
