@@ -4,10 +4,10 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     // Delegates
-    public delegate void OnPlayerDeath();
+    /*public delegate void OnPlayerDeath();
     public static OnPlayerDeath onPlayerDeath;
     public delegate void OnPlayerDamage();
-    public static OnPlayerDamage onPlayerDamage;
+    public static OnPlayerDamage onPlayerDamage;*/
 
     // Health
     [SerializeField] public float maxHealth = 100f;
@@ -29,8 +29,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         health = maxHealth;
-        onPlayerDamage += particleSystem.Play;
-        onPlayerDeath += particleSystem.Play;
+        //onPlayerDamage += particleSystem.Play;
+        //onPlayerDeath += particleSystem.Play;
     }
 
     private void Update()
@@ -64,13 +64,13 @@ public class PlayerHealth : MonoBehaviour
             timer = timeIsDead;
             isDead = true;
 
-            onPlayerDeath?.Invoke();
+            //onPlayerDeath?.Invoke();
         } else
         {
             timer = timeIsDamaged;
             isDamaged = true;
 
-            onPlayerDamage?.Invoke();
+            //onPlayerDamage?.Invoke();
         }
     }
 }

@@ -16,8 +16,11 @@ public class CharacterAudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerHealth.onPlayerDamage += PlayCharacterDamage;
-        PlayerHealth.onPlayerDeath += PlayCharacterDeath;
+        //PlayerHealth.onPlayerDamage += PlayCharacterDamage;
+        //PlayerHealth.onPlayerDeath += PlayCharacterDeath;
+        PlayerMovement.onPlayerJump += PlayCharacterJump;
+        PlayerMovement.onPlayerAttack += PlayCharacterAttack;
+        PlayerMovement.onPlayerMove += PlayCharacterSteps;
     }
 
     public void PlayCharacterAttack()

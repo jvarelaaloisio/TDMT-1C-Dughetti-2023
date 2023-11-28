@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private PlayerMovement playerMovement;
 
     private void Reset()
     {
@@ -13,12 +12,12 @@ public class PlayerView : MonoBehaviour
 
     private void Update()
     {
-        bool isRunning = playerMovement.horizontal != 0f;
+        bool isRunning = GetComponentInParent<CharacterMovement>().GetDirection().x != 0f;
 
         animator.SetBool("isRunning", isRunning);
-        animator.SetBool("isJumping", !playerMovement.isGrounded);
-        animator.SetBool("isAttacking", playerMovement.isAttacking);
-        animator.SetBool("isDamaged", playerMovement.health.isDamaged);
-        animator.SetBool("isDead", playerMovement.health.isDead);
+        animator.SetBool("isJumping", !GetComponentInParent<CharacterMovement>().GetIsGrounded());
+        animator.SetBool("isAttacking", GetComponentInParent<CharacterMovement>().isAttacking);
+        //animator.SetBool("isDamaged", playerMovement.health.isDamaged);
+        //animator.SetBool("isDead", playerMovement.health.isDead);
     }
 }

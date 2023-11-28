@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1945034405391219478}
   - component: {fileID: 4584789447452558141}
-  - component: {fileID: 6262019977750859002}
   m_Layer: 0
   m_Name: AttackArea
   m_TagString: Untagged
@@ -78,20 +77,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6262019977750859002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 808303795501725018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aad35aeffe497b40bb5124358c65df7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyDamage: 20
-  audioManager: {fileID: 8928151136835332167}
 --- !u!1 &3584584159850884636
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,10 +88,11 @@ GameObject:
   - component: {fileID: 8873810378074729856}
   - component: {fileID: 3793551578013820937}
   - component: {fileID: 8003799424241154276}
-  - component: {fileID: 1468610662121978886}
-  - component: {fileID: -3239991553705372230}
   - component: {fileID: 8295078944851492935}
   - component: {fileID: 3229699111540022681}
+  - component: {fileID: 5594158137391152134}
+  - component: {fileID: 6755526185364543450}
+  - component: {fileID: 1470546205989109510}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
@@ -204,38 +190,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.9235642, y: 3.0013409}
   m_EdgeRadius: 0
---- !u!114 &1468610662121978886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3584584159850884636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70cc14e7859eaf54e923a43074e7651d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 150
-  isDamaged: 0
-  isDead: 0
-  audioManager: {fileID: 8928151136835332167}
---- !u!114 &-3239991553705372230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3584584159850884636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a718cc80a0f4fa5429d7e404353bf011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  health: {fileID: 1468610662121978886}
-  isAttacking: 0
-  audioManager: {fileID: 8928151136835332167}
 --- !u!198 &8295078944851492935
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5089,6 +5043,56 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5594158137391152134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584584159850884636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdbd3e851cfd4e49b038141a3246d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 150
+  particleSystem: {fileID: 8295078944851492935}
+--- !u!114 &6755526185364543450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584584159850884636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7826a2f8072de494db41a745ec8a9d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpingPower: 16
+  speed: 2
+  direction: {x: 0, y: 0}
+  attackArea: {fileID: 1945034405391219478}
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  attackDamage: 20
+  attackRange: 0
+  characterView: {fileID: 8758136989169095496}
+  isAttacking: 0
+--- !u!114 &1470546205989109510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584584159850884636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111d73c56c0eb2546b7ac6431a8bd613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterMovement: {fileID: 6755526185364543450}
 --- !u!1 &4252410624721688103
 GameObject:
   m_ObjectHideFlags: 0
@@ -5247,7 +5251,7 @@ GameObject:
   - component: {fileID: 5676615216302897552}
   - component: {fileID: 6778555952191808614}
   - component: {fileID: 1236703551812607967}
-  - component: {fileID: 4270468252052529094}
+  - component: {fileID: 8758136989169095496}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -5343,7 +5347,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4270468252052529094
+--- !u!114 &8758136989169095496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5352,7 +5356,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5026486240463205214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c707fc25c549e64ca52c8c8b6848541, type: 3}
+  m_Script: {fileID: 11500000, guid: dfb496dcc1943ea488b63939e88ed53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1236703551812607967}
+  hasIdleState: 0

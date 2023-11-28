@@ -1,9 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 //TODO: TP2 - Fix - Character movement must be unified into a single script 
 public class PlayerMovement : MonoBehaviour
 {
+    // Delegates
+    public delegate void OnPlayerJump();
+    public static OnPlayerJump onPlayerJump;
+    public delegate void OnPlayerAttack();
+    public static OnPlayerAttack onPlayerAttack;
+    public delegate void OnPlayerMove();
+    public static OnPlayerMove onPlayerMove;
+
+    // Input Reader
+    [SerializeField] private InputReader inputReader;
+
     // Movement
     public Rigidbody2D rb;
     public float horizontal;
@@ -23,92 +35,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float attackRange;
     public PlayerHealth health;
-
-    //Audio
-    [SerializeField] private CharacterAudioManager audioManager;
     
     private void Start()
     {
         health = GetComponent<PlayerHealth>();
+
+        /*onPlayerMove += Move;
+        onPlayerAttack += Attack;
+        onPlayerJump += Jump;*/
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //TODO: TP2 - Optimization - Should be event based
-        if (health.isDead)
+        if (isAttacking)
         {
-            Debug.Log("Player is dead!");
-        } else
-        {
-            if(horizontal != 0f && isGrounded)
-                audioManager.PlayCharacterSteps();
-
-            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-
-            if (!isFacingRight && horizontal < 0f)
+            timerBetweenAttacks -= Time.deltaTime;
+            if (timerBetweenAttacks <= 0)
             {
-                Flip();
+                isAttacking = false;
             }
-            else if (isFacingRight && horizontal > 0f)
-            {
-                Flip();
-            }
-
-            if(isAttacking) {
-                timerBetweenAttacks -= Time.deltaTime;
-                if(timerBetweenAttacks <= 0)
-                {
-                    isAttacking = false;
-                }
-            }
-        }
-    }
-
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.performed && isGrounded) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-            audioManager.PlayCharacterJump();
-            isGrounded = false;
-        } 
-        
-        if(context.canceled && rb.velocity.y > 0f && isGrounded)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            audioManager.PlayCharacterJump();
-            isGrounded = false;
-        }
-    }
-
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-    }
-
-    //TODO: TP2 - Move all input reads to specific class
-    public void Move(InputAction.CallbackContext context)
-    {
-        horizontal = context.ReadValue<Vector2>().x;
-    }
-
-    public void Attack(InputAction.CallbackContext context)
-    {
-        if (timerBetweenAttacks <= 0 && context.performed)
-        {
-            isAttacking = true;
-            Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
-            foreach(Collider2D enemy in enemiesInAttackArea)
-            {
-                enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
-            }
-
-            timerBetweenAttacks = attackDelay;
-
-            audioManager.PlayCharacterAttack();
         }
     }
 

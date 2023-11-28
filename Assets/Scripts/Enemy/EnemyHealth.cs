@@ -48,19 +48,19 @@ public class EnemyHealth : MonoBehaviour
         health -= damage;
         
         Debug.Log($"Enemy got hit! Health: {health}");
+        GetComponent<ParticleSystem>().Play();
+
         if (health <= 0f)
         {
             isDead = true;
             timer = timeIsDead;
             audioManager.PlayCharacterDeath();
-            GetComponent<ParticleSystem>().Play();
         }
         else
         {
             isDamaged = true;
             timer = timeIsDamaged;
             audioManager.PlayCharacterDamage();
-            GetComponent<ParticleSystem>().Play();
         }
     }
 }
