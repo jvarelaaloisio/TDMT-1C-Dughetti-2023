@@ -45,4 +45,9 @@ public class EnemyInput : MonoBehaviour
         //TODO: TP2 - Fix - Hardcoded value/s
         characterMovement.Attack();
     }
+
+    private void OnDisable()
+    {
+        spawner.Spawn();
+    }
 }

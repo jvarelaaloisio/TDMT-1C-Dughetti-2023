@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 3584584159850884636}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5056,9 +5056,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterView: {fileID: 8758136989169095496}
-  characterAudioManager: {fileID: 8928151136835332167}
   maxHealth: 150
+  isPlayerCharacter: 0
+  levelHandler: {fileID: 0}
   particleSystem: {fileID: 8295078944851492935}
+  characterAudioManager: {fileID: 8928151136835332167}
 --- !u!114 &6755526185364543450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5082,7 +5084,6 @@ MonoBehaviour:
   jumpingPower: 0
   speed: 2
   direction: {x: 0, y: 0}
-  particleSystem: {fileID: 8295078944851492935}
   characterAudioManager: {fileID: 8928151136835332167}
 --- !u!114 &1470546205989109510
 MonoBehaviour:

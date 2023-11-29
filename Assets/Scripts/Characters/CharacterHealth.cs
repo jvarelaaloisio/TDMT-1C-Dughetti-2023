@@ -7,14 +7,21 @@ public class CharacterHealth : MonoBehaviour
     private bool isDamaged = false;
     private bool isDead = false;
     [SerializeField] CharacterView characterView;
-    [SerializeField] CharacterAudioManager characterAudioManager;
 
     // Health
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private bool isPlayerCharacter = false;
     private float health;
+    private bool isImmuneToDamage = false;
 
-    //Particle
+    // Level Handler
+    [SerializeField] private LevelHandler levelHandler;
+
+    // Particle
     [SerializeField] private new ParticleSystem particleSystem;
+
+    // Sound
+    [SerializeField] CharacterAudioManager characterAudioManager;
 
     private void Start()
     {
@@ -41,10 +48,26 @@ public class CharacterHealth : MonoBehaviour
         return maxHealth;
     }
 
+    public bool GetIsImmuneToDamage()
+    {
+        return isImmuneToDamage;
+    }
+
+    public void SetIsImmuneToDamage(bool value)
+    {
+        isImmuneToDamage = value;
+    }
+
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        Debug.Log("Damage taken, current health: " + health);
+        if (!isImmuneToDamage)
+        {
+            health -= damage;
+            Debug.Log("Damage taken, current health: " + health);
+        } else
+        {
+            Debug.Log("Damage immunity is enabled, player won't take damage");
+        }
 
         particleSystem.Play();
 
@@ -71,8 +94,13 @@ public class CharacterHealth : MonoBehaviour
 
     IEnumerator CheckDeathAnimation()
     {
+        Debug.Log("Starting Death coroutine");
         yield return new WaitUntil(() => characterView.IsCurrentAnimationDeath());
         yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
-        Destroy(gameObject);
+
+        if (isPlayerCharacter)
+            levelHandler.GameOver();
+        else
+            gameObject.SetActive(false);
     }
 }

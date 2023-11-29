@@ -25,6 +25,7 @@ public class CharacterView : MonoBehaviour
             animator.SetBool("isRunning", isRunning);
         if (hasJumpState)
             animator.SetBool("isJumping", characterMovement.GetIsGrounded());
+
         animator.SetBool("isAttacking", characterMovement.GetIsAttacking());
         animator.SetBool("isDamaged", characterHealth.GetIsDamaged());
         animator.SetBool("isDead", characterHealth.GetIsDead());

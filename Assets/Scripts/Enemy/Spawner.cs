@@ -1,61 +1,58 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //TODO: TP2 - Fix - Merge with BossSpawner
 public class Spawner : MonoBehaviour
 {
+    // Animation
+    private bool isDestroyed = false;
+    private SpawnView spawnView;
+
     [SerializeField] private GameObject enemyToSpawn;
     [SerializeField] private int maxSpawn;
-    [SerializeField] Spawner bossSpawner;
-    [SerializeField] bool isBossSpawner;
-    [SerializeField] private int spawnsDeadToSpawnBoss;
+
+    private LevelHandler levelHandler;
 
     private int spawnCount = 0;
-    private int spawnsDead = 0;
-    private bool canSpawnBoss;
 
     public List<Vector2> positions;
 
     private void Start()
     {
-        canSpawnBoss = isBossSpawner;
-    }
-
-    private void Update()
-    {
-        if (isBossSpawner)
-            BossSpawnerUpdate();
-        else
-            SpawnerUpdate();
+        levelHandler = GameObject.FindWithTag("LevelHandler").GetComponent<LevelHandler>();
+        spawnView = gameObject.GetComponentInChildren<SpawnView>();
+        if(spawnView != null)
+        {
+            Spawn();
+        }
     }
 
     [ContextMenu("Spawn")]
-    private void Spawn()
+    public void Spawn()
     {
-        Instantiate(enemyToSpawn, transform);
-    }
-
-    void SpawnerUpdate()
-    {
-        if (transform.childCount == 0 && spawnCount < maxSpawn)
+        if (spawnCount < maxSpawn)
         {
             spawnCount++;
-            Spawn();
-
-            if (spawnCount == maxSpawn)
-            {
-                bossSpawner.spawnsDead++;
-            }
+            Instantiate(enemyToSpawn, transform);
+        }
+        else if (spawnCount == maxSpawn)
+        {
+            StartCoroutine(DestroySpawn());
         }
     }
 
-    void BossSpawnerUpdate()
+    public bool GetIsDestroyed()
     {
-        //TODO: TP2 - Optimization - Should be event based
-        if (spawnsDead == spawnsDeadToSpawnBoss && canSpawnBoss)
-        {
-            Spawn();
-            canSpawnBoss = false;
-        }
+        return isDestroyed;
+    }
+
+    IEnumerator DestroySpawn()
+    {
+        isDestroyed = true;
+        yield return new WaitUntil(() => spawnView.IsCurrentAnimationDestroy());
+        levelHandler.IncreaseDefeatedSpawnerCount();
+        yield return new WaitUntil(() => !spawnView.IsAnimationBeingPlayed());
+        this.gameObject.SetActive(false);
     }
 }

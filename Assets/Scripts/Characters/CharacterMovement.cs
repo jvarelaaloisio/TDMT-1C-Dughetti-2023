@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    //Animation
+    // Animation
     public bool isAttacking;
 
     // Attack
@@ -13,16 +13,28 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private CharacterView characterView;
 
-    //Movement
-    private bool isFacingRight = true;
+    // Cheats
+    [SerializeField] private string enemyTag;
+    private bool isDamageAllEnabled = false;
+    private bool isSuperSpeedEnabled = false;
+    private float superSpeedMultiplier = 2f;
+
+    // Movement
+    [SerializeField] private bool isFacingRight = true;
     private bool isGrounded = true;
     private string groundTag = "Ground";
     [SerializeField] private float jumpingPower = 16f;
-    [SerializeField] private float speed = 8f;
+    [SerializeField] private float baseSpeed = 8f;
+    private float currentSpeed;
     [SerializeField] private Vector2 direction;
 
     // Sound
     [SerializeField] private CharacterAudioManager characterAudioManager;
+
+    private void Start()
+    {
+        currentSpeed = baseSpeed;
+    }
 
     public void Update()
     {
@@ -50,12 +62,35 @@ public class CharacterMovement : MonoBehaviour
         direction = new Vector2(inputDirection.x, inputDirection.y);
     }
 
+    public bool GetIsDamageAllEnabled()
+    {
+        return isDamageAllEnabled;
+    }
+
+    public void SetIsDamageAllEnabled(bool value)
+    {
+        isDamageAllEnabled = value;
+    }
+
+    public bool GetIsSuperSpeedEnabled()
+    {
+        return isSuperSpeedEnabled;
+    }
+
+    public void SetIsSuperSpeedEnabled(bool value)
+    {
+        isSuperSpeedEnabled = value;
+
+        currentSpeed = isSuperSpeedEnabled ? currentSpeed * superSpeedMultiplier : baseSpeed;
+        Debug.Log("Updated player speed. Current speed: " + currentSpeed);
+    }
+
     public void Move()
     {
         if (isGrounded)
             characterAudioManager.PlayCharacterSteps();
 
-        GetComponent<Transform>().position += new Vector3(direction.x, direction.y) * speed * Time.deltaTime;
+        GetComponent<Transform>().position += new Vector3(direction.x, direction.y) * currentSpeed * Time.deltaTime;
 
         if (!isFacingRight && direction.x < 0f)
         {
@@ -99,10 +134,20 @@ public class CharacterMovement : MonoBehaviour
     {
         yield return new WaitUntil(() => characterView.IsCurrentAnimationAttack());
 
-        Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
-        foreach (Collider2D enemy in enemiesInAttackArea)
+        if (isDamageAllEnabled)
         {
-            enemy.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+            foreach(GameObject enemy in enemies)
+            {
+                enemy.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
+            }
+        } else
+        {
+            Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
+            foreach (Collider2D enemy in enemiesInAttackArea)
+            {
+                enemy.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
+            }
         }
 
         yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());

@@ -385,6 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMovement: {fileID: 6729924288858540628}
+  levelHandler: {fileID: 0}
+  cheatsHandler: {fileID: 0}
 --- !u!114 &1016899221369745644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +502,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0c1cd1ce-de8c-495a-acee-034e1632cbfd
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2909592022097774201}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d42a7d23-d465-481a-95ac-9eb6d6ddce18
+    m_ActionName: Player/Pause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -605,10 +623,11 @@ MonoBehaviour:
   attackDamage: 20
   attackRange: 1
   characterView: {fileID: 7242291551675616919}
+  enemyTag: Enemy
+  isFacingRight: 1
   jumpingPower: 13
-  speed: 3
+  baseSpeed: 4
   direction: {x: 0, y: 0}
-  particleSystem: {fileID: 4798970635480189461}
   characterAudioManager: {fileID: 2247161595243536853}
 --- !u!114 &1338841867532937801
 MonoBehaviour:
@@ -623,9 +642,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterView: {fileID: 7242291551675616919}
-  characterAudioManager: {fileID: 2247161595243536853}
   maxHealth: 100
+  isPlayerCharacter: 0
+  levelHandler: {fileID: 0}
   particleSystem: {fileID: 4798970635480189461}
+  characterAudioManager: {fileID: 2247161595243536853}
 --- !u!198 &4798970635480189461
 ParticleSystem:
   m_ObjectHideFlags: 0
