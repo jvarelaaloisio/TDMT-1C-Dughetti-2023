@@ -4679,6 +4679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 824094882}
   - component: {fileID: 824094881}
+  - component: {fileID: 824094883}
   m_Layer: 0
   m_Name: LevelHandler
   m_TagString: LevelHandler
@@ -4701,7 +4702,7 @@ MonoBehaviour:
   defeatObject: {fileID: 1357988820}
   victoryObject: {fileID: 2036735867}
   currentLevelScene: Level_01
-  nextLevelScene: Credits
+  nextLevelScene: Level_02
   pauseMenu: {fileID: 578148533}
   endgameMenu: {fileID: 688875452}
   controlsMenu: {fileID: 2096616816}
@@ -4723,6 +4724,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &824094883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824094880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c2149e5798f1d47b65b4d0f9cbc9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 1881866359}
+  playerMovement: {fileID: 1881866356}
 --- !u!4 &829214045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7958654173970609237, guid: bf1f0bc0c44c07f469cbeaa47af41e02, type: 3}
@@ -11636,6 +11651,10 @@ PrefabInstance:
       propertyPath: levelHandler
       value: 
       objectReference: {fileID: 824094881}
+    - target: {fileID: 2909592022097774201, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
+      propertyPath: cheatsHandler
+      value: 
+      objectReference: {fileID: 824094883}
     - target: {fileID: 2909592022097774201, guid: 87bc43487aea2e548a95d52360d9ee83, type: 3}
       propertyPath: characterMovement
       value: 

@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
             spawnCount++;
             Instantiate(enemyToSpawn, transform);
         }
-        else if (spawnCount == maxSpawn)
+        else if (spawnCount == maxSpawn && gameObject.activeSelf)
         {
             StartCoroutine(DestroySpawn());
         }

@@ -20,6 +20,7 @@ public class LevelHandler : MonoBehaviour
     [SerializeField] private GameObject controlsMenu;
     [SerializeField] private GameObject controlsBanner;
     [SerializeField] private GameObject cheatsMenu;
+    [SerializeField] private GameObject bossSpawner;
     private bool showPauseMenu = false;
     private bool showEndgameMenu = false;
     private bool showControls = false;
@@ -66,17 +67,11 @@ public class LevelHandler : MonoBehaviour
         HideCheats();
         ToggleControlsBanner(false);
 
-        Debug.Log("Pausing time");
         Time.timeScale = timePaused;
 
-        Debug.Log("Trigger endgame menu");
-        showEndgameMenu = !showEndgameMenu;
-
-        Debug.Log("Hide victory");
         victoryObject.SetActive(false);
 
-        Debug.Log("Show endgame menu");
-        endgameMenu.SetActive(showEndgameMenu);
+        endgameMenu.SetActive(true);
     }
 
     public void GoToMainMenu()
@@ -93,6 +88,7 @@ public class LevelHandler : MonoBehaviour
 
     public void RetryLevel()
     {
+        Debug.Log("Retry");
         Time.timeScale = timeUnpaused;
         SceneManager.LoadScene(currentLevelScene);
     }
@@ -104,12 +100,11 @@ public class LevelHandler : MonoBehaviour
         ToggleControlsBanner(false);
 
         Time.timeScale = timePaused;
-        showEndgameMenu = !showEndgameMenu;
 
         if (defeatObject != null)
             defeatObject.SetActive(false);
 
-        endgameMenu.SetActive(showEndgameMenu);
+        endgameMenu.SetActive(true);
     }
 
     public void TogglePause()
@@ -117,6 +112,8 @@ public class LevelHandler : MonoBehaviour
         HideControls();
         HideCheats();
         ToggleControlsBanner(showPauseMenu);
+        if(bossSpawner != null)
+            bossSpawner.SetActive(showPauseMenu);
 
         showPauseMenu = !showPauseMenu;
         Time.timeScale = showPauseMenu ? timePaused : timeUnpaused;
