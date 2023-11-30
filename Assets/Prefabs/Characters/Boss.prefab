@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5594158137391152134}
   - component: {fileID: 6755526185364543450}
   - component: {fileID: 1470546205989109510}
+  - component: {fileID: 304993478463143897}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Enemy
@@ -5057,6 +5058,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterView: {fileID: 8758136989169095496}
+  isBoss: 1
+  bossSpecialAttack: {fileID: 304993478463143897}
   maxHealth: 150
   isPlayerCharacter: 0
   levelHandler: {fileID: 0}
@@ -5101,6 +5104,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMovement: {fileID: 6755526185364543450}
+--- !u!114 &304993478463143897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584584159850884636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d403f6dfdd9fd46a7adc15c2a71fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterMovement: {fileID: 6755526185364543450}
+  isSpecialAttacking: 0
 --- !u!1 &4252410624721688103
 GameObject:
   m_ObjectHideFlags: 0
@@ -5370,8 +5387,10 @@ MonoBehaviour:
   animator: {fileID: 1236703551812607967}
   hasIdleState: 0
   hasJumpState: 0
+  hasSpecialAttack: 1
   characterMovement: {fileID: 6755526185364543450}
   characterHealth: {fileID: 5594158137391152134}
+  bossSpecialAttack: {fileID: 304993478463143897}
 --- !u!1 &7620876540149873033
 GameObject:
   m_ObjectHideFlags: 0

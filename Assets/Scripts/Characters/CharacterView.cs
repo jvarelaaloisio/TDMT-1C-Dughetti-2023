@@ -7,12 +7,15 @@ public class CharacterView : MonoBehaviour
     [SerializeField] private bool hasIdleState = false;
     //Enemies don't have jump state, only player does
     [SerializeField] private bool hasJumpState = false;
+    //Only boss has special attack
+    [SerializeField] private bool hasSpecialAttack = false;
 
     [SerializeField] private CharacterMovement characterMovement;
     [SerializeField] private CharacterHealth characterHealth;
 
     // Character animation names
     private string attackAnimationName = "Attack";
+    private string specialAttackAnimationName = "SpecialAttack";
     private string damageAnimationName = "Damage";
     private string deathAnimationName = "Death";
 
@@ -25,8 +28,11 @@ public class CharacterView : MonoBehaviour
             animator.SetBool("isRunning", isRunning);
         if (hasJumpState)
             animator.SetBool("isJumping", characterMovement.GetIsGrounded());
+        if(hasSpecialAttack)
+            animator.SetBool("isSpecialAttacking", characterMovement.isSpecialAttacking);
 
         animator.SetBool("isAttacking", characterMovement.GetIsAttacking());
+
         animator.SetBool("isDamaged", characterHealth.GetIsDamaged());
         animator.SetBool("isDead", characterHealth.GetIsDead());
     }
@@ -44,6 +50,11 @@ public class CharacterView : MonoBehaviour
     public bool IsCurrentAnimationAttack()
     {
         return IsCurrentAnimation(attackAnimationName);
+    }
+
+    public bool IsCurrentAnimationSpecialAttack()
+    {
+        return IsCurrentAnimation(specialAttackAnimationName);
     }
 
     public bool IsCurrentAnimationDamage()

@@ -5,6 +5,7 @@ public class CharacterMovement : MonoBehaviour
 {
     // Animation
     public bool isAttacking;
+    public bool isSpecialAttacking;
 
     // Attack
     [SerializeField] private Transform attackArea;
@@ -102,7 +103,7 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void Flip()
+    public void Flip()
     {
         isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
@@ -152,6 +153,25 @@ public class CharacterMovement : MonoBehaviour
 
         yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
         isAttacking = false;
+    }
+    
+    public void SpecialAttack()
+    {
+        StartCoroutine(DoSpecialAttack());
+    }
+
+    public IEnumerator DoSpecialAttack()
+    {
+        isSpecialAttacking = true;
+        yield return new WaitUntil(() => characterView.IsCurrentAnimationSpecialAttack());
+        Collider2D[] enemiesInAttackArea = Physics2D.OverlapCircleAll(attackArea.position, attackRange, enemiesLayer);
+        foreach (Collider2D enemy in enemiesInAttackArea)
+        {
+            enemy.GetComponent<CharacterHealth>().TakeDamage(attackDamage);
+        }
+        yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
+        yield return new WaitForEndOfFrame();
+        isSpecialAttacking = false;
     }
 
     private void OnDrawGizmosSelected()

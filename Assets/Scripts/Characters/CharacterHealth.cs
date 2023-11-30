@@ -8,6 +8,10 @@ public class CharacterHealth : MonoBehaviour
     private bool isDead = false;
     [SerializeField] CharacterView characterView;
 
+    // Boss mechanics
+    [SerializeField] private bool isBoss = false;
+    [SerializeField] private BossSpecialAttack bossSpecialAttack;
+
     // Health
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private bool isPlayerCharacter = false;
@@ -90,6 +94,12 @@ public class CharacterHealth : MonoBehaviour
         yield return new WaitUntil(() => characterView.IsCurrentAnimationDamage());
         yield return new WaitUntil(() => !characterView.IsAnimationBeingPlayed());
         isDamaged = false;
+
+        if (isBoss)
+        {
+            Debug.Log("Starting special attack coroutine");
+            bossSpecialAttack.SpecialAttackCoroutine();
+        }
     }
 
     IEnumerator CheckDeathAnimation()

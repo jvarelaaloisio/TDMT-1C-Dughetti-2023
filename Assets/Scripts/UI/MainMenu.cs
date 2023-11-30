@@ -21,7 +21,6 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         //TODO: TP2 - Fix - Application.Quit();
-        Application.Quit();
-        //System.Diagnostics.Process.GetCurrentProcess().Kill();
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
     }
 }
